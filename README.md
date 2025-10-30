@@ -1,7 +1,7 @@
 # Artícora-WEB
 ## Autores
 - Joaquín Gutiérrez Díaz — 22300907
-- PONGAN LOS SUYOS
+- Leonardo Serna Sánchez - 22300909
 ## Materia 
 - Programación Web I
 - 7E1
