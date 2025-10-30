@@ -50,9 +50,12 @@ app.use(cookieParser())
 app.use((req, res, next) => {
   req.user = false
   const token = req.cookies && req.cookies.ART_R
-  if (token && process.env.JWTSECRET) {
+  // Usar el mismo secreto que usamos al firmar el token (con fallback para desarrollo)
+  const secret = process.env.JWTSECRET || 'changeme'
+
+  if (token) {
     try {
-      const decoded = jwt.verify(token, process.env.JWTSECRET)
+      const decoded = jwt.verify(token, secret)
       // Guardamos la información relevante del token en req.user
       req.user = {
         userId: decoded.userid,
@@ -60,8 +63,10 @@ app.use((req, res, next) => {
         exp: decoded.exp,
         iat: decoded.iat
       }
+      console.log('Sesión válida para:', req.user.username)
     } catch (e) {
       // Token inválido: no hacemos nada, el usuario no está logueado
+      console.log('Token inválido:', e.message)
       req.user = false
     }
   }
@@ -89,22 +94,22 @@ function sanitizeData(input) {
 
 
 // --- RUTAS PÚBLICAS ---
-// Servimos páginas HTML estáticas que deben estar en la carpeta "views".
+// Servimos páginas HTML estáticas que deben estar en la carpeta "public".
 // Estas rutas muestran formularios y contenido estático, no usan plantillas EJS.
 
 // Página principal (puede mostrar información diferente según si el usuario está logueado)
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'))
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 // Página de login (formulario para iniciar sesión)
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.html'))
+  res.sendFile(path.join(__dirname, 'public', 'login.html'))
 })
 
 // Página de registro (formulario para crear cuenta)
 app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'register.html'))
+  res.sendFile(path.join(__dirname, 'public', 'register.html'))
 })
 
 // Ruta para cerrar sesión: borramos la cookie y redirigimos al login
@@ -214,7 +219,13 @@ app.post('/register', (req, res) => {
 })
 
 
-// No me ves
+// API: obtener información del usuario logueado (para usar desde JS en páginas estáticas)
+app.get('/api/me', (req, res) => {
+  if (req.user) {
+    return res.json({ username: req.user.username })
+  }
+  return res.json({ username: null })
+})
 
 
 // --- INICIAR SERVIDOR ---
