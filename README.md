@@ -1,7 +1,8 @@
 # Artícora-WEB
 ## Autores
 - Joaquín Gutiérrez Díaz — 22300907
-- Leonardo Serna Sánchez - 22300909
+- Leonardo Serna Sánchez — 22300909
+- David Israel Gómez Méndez — 22300926
 ## Materia 
 - Programación Web I
 - 7E1
