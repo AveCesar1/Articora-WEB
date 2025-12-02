@@ -1,0 +1,120 @@
+/*Elementos acomodados de forma alfabetica*/
+
+body{
+    background-color: #BAD8FF;
+}
+#btnRegistrar{
+    margin-top: 30px;
+    margin-left: 40%;
+    width: 150px;
+    height: 50px;
+    background-color: #67C5FF;
+    color: black;
+    font-size: 20px;
+}  
+
+#btnSubirFuente{
+    background-color: #67C5FF;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#btnRegistrate{
+    background-color: #67C5FF;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#card1{
+    background-color: #EEF7FF;
+    color: black;
+}
+
+#datosCard{
+    width: 45rem; 
+    height: 45rem; 
+    margin-left: 33%; 
+    margin-top: 5%;
+    border-radius: 5%;
+      border: solid;
+    border-color: black;
+    border-width: 2px;
+}
+
+#datosCard h2, #datosCard button{
+    text-align: center;
+}
+#datosCard p{
+    margin-top: 40px;
+    margin-left: 15%;
+    font-size: 20px;
+}
+#datosCard input{
+    margin-top: 10px;
+    width: 500px;
+    height: 50px;
+    margin-left: 15%;
+}
+
+#encabezado input{
+    margin-top: 15px;
+    margin-left: 20px;
+    width: 600px;
+    height: 40px;
+    border-radius: 5px;
+    border: solid;
+    border-color: black;
+    border-width: 1px;
+}
+#encabezado h1{
+    font-family: italic;
+    font-size: 60px;
+    
+}
+
+#encabezado{
+    background-color: #FFFFFF;
+    color: black;
+    font-style: bold;
+    font-size: 50px;
+    height: 80px;
+    border: solid;
+    border-color: black;
+    border-width: 2px;
+
+}
+
+#FotoDePerfil{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+#NombreDeUsuario{
+    color:white;
+    margin-top: 10px;
+    margin-left: 15px;
+
+}
+
+#presentacionCard{
+    width: 90%;
+    margin-top: 100px;
+    margin-left: 5%;
+    border: solid;
+    border-color: black;
+    border-width: 2px;
+}
+
+#PrimerTercio{
+    background-color: #FFFFFF;
+}
+
+#SegundoTercio{
+    background-color: #EEF7FF;
+}
+#TercerTercio{
+    background-color: #FFFFFF;
+}
