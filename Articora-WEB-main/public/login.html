@@ -9,19 +9,15 @@
   <link rel="stylesheet" href="Style.css">
 </head>
 
-<body>
-  <div class="container" id="cuerpo">
+<body id="LogInBody">
+  <div class="container-fluid" id="cuerpo">
     <div class="row">
-      <div class="col">
-        <p>1</p>
-      </div>
       <div class="col" id="LogInCol2">
 
         <!--Tarjeta que contiene el formulario-->
         <div class="card" id="datosCard">
           <h2>Iniciar sesión</h2>
           <br>
-
           <!-- Formulario que se conecta con la ruta POST /login del servidor -->
           <form method="POST" action="/login">
             <p>Nombre de usuario</p>
