@@ -39,7 +39,11 @@
 
 #datosCard{
    height: 100%;
-
+   padding: 50px;
+   width: 100%;
+   margin-left: 50%;
+   margin-top: 15%;
+   background-color: #EEF7FF;
 }
 
 #datosCard h2, #datosCard button{
@@ -96,10 +100,12 @@
     width: 50px;
     border-radius: 50%;
 }
-img{
-    width: 100px;
-    height: 100px;
+
+#ImagenPro{
+    height: 100%;
+    width: 100%;
 }
+
 #LogInCol2{
     border: solid;
     border-color: black;
@@ -143,8 +149,18 @@ img{
     box-shadow: 0 10px 10px rgba(0,0,0, 0.4);
     padding: 20px;
 }
+
+#SegundoTercioImagen{
+    height: 150px;
+    width: 150px;
+}
 #TercerTercio{
     padding: 30px;
     background-color: #FFFFFF;
     height: 400px;
+}
+#TercerTercioImagen{
+    height: 150px;
+    width: 150px;
+    margin-left: 50px;
 }
