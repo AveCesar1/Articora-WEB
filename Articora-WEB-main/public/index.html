@@ -11,40 +11,44 @@
 </head>
 
 <body>
+  <!---Encabezado Sigma-->
   <div class="container-fluid" id="encabezado">
     <div class="row">
       <div class="col">
         <h1>Articora</h1>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-primary" id="btnRegistrate">Registrate</button>
+        <button type="button" class="btn" id="btnRegistrate">Registrate</button>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-primary" id="btnSubirFuente">Subir Fuente</button>
+        <button type="button" class="btn" id="btnSubirFuente">Subir Fuente</button>
       </div>
       <div class="col">
         <input type="text" class="form-control" placeholder="Buscar una fuente" aria-label="Username"
           aria-describedby="basic-addon1">
       </div>
       <div class="col">
-        <h2 id="NombreDeUsuario">Nombre de usuario.</h2>
+        <p id="NombreDeUsuario">Nombre de usuario.</p>
       </div>
       <div class="col"> <img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil"></img></div>
     </div>
   </div>
-
+  <br>
   <div class="container-fluid" id="cuerpo">
     <!---Primer tercio de la pagina principal-->
     <div class="row" id="PrimerTercio">
-      <div class="col">
+      <div class="col-md-5">
         <div class="card" id="card1">
           <h3>¿Qué es Artícora?</h3>
           <br>
-          <p>Hola amigos</p>
+          <p>Articora es el sitio donde puedes encontrar las mejores fuentes bibliograficas para tus investigaciones.
+            Valoradas y calificadas para asegurarte una investigación de calidad.</p>
         </div>
       </div>
-      <div class="col">
-        <img src="" alt="imagen de articora">
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-4">
+        <img src="Imagenes/MontañasMuyPadres.jpeg" alt="imagen de articora" id="PrimerTercioImagen">
       </div>
     </div>
     <hr>
@@ -55,16 +59,19 @@
         <div class="col">
           <div class="card" id="card2">
             <h3>Encontrar fuentes</h3>
-            <p>Hola amigos</p>
-            <img src="" alt="imagenlibro"> 
+            <p>Puedes encontrar fuentes bibliograficas publicadas por otros usuarios
+              a los que les apasiona la investigación tanto como a ti.</p>
+            <img src="Imagenes/LibroIcono.png" alt="imagenlibro">
           </div>
         </div>
         <div class="col">
 
-          <div class="card">
+          <div class="card" id="card2">
             <h3>Publicar tus fuentes</h3>
-            <p>Hola amigos</p>
-            <img src="" alt="imagenmundo"> 
+            <p>Ademas, tienes la posibilidad de publicar y guardar tus propias
+              fuentes bibliograficas, así, para que los demas usuarios puedan expandir
+              su conocimiento y conocer tus gustos.</p>
+            <img src="Imagenes/PlanetaIcono.png" alt="imagenmundo">
 
           </div>
 
@@ -77,8 +84,10 @@
       <div class="container-fluid">
         <div class="card">
           <h3>Nuestra Misión.</h3>
-          <p>Hola amigos pepes</p>
-          <img src="" alt="imagenmanos">
+          <p>Nuestra principal misión es formar una comunidad de investigadores que puedan
+            apoyarse mutuamente al publicar fuentes bibliograficas de calidad y realmente utiles para cada investigador.
+          </p>
+          <img src="Imagenes/ManosIcono.png" alt="imagenmanos">
         </div>
       </div>
 

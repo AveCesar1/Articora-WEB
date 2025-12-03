@@ -10,32 +10,40 @@
 </head>
 
 <body>
-  <div class="container-fluid" id="encabezado">
-    <h1>Articora</h1>
-  </div>
-
   <div class="container" id="cuerpo">
+    <div class="row">
+      <div class="col">
+        <p>1</p>
+      </div>
+      <div class="col" id="LogInCol2">
 
-    <div class="card" id="datosCard">
-      <h2>Iniciar sesión</h2>
-      <br>
+        <!--Tarjeta que contiene el formulario-->
+        <div class="card" id="datosCard">
+          <h2>Iniciar sesión</h2>
+          <br>
 
-      <!-- Formulario que se conecta con la ruta POST /login del servidor -->
-      <form method="POST" action="/login">
-        <p>Nombre de usuario</p>
-        <input id="username" name="username" type="text" class="form-control" placeholder="Escribe aqui..." required>
-        <br>
-        <p>Contraseña</p>
-        <input id="password" name="password" type="password" class="form-control" placeholder="Escribe aqui..." required>
-        <br>
-        <!-- Usamos el mismo id de botón que en register para heredar estilo -->
-        <button type="submit" class="btn btn-primary" id="btnRegistrar">Entrar</button>
-      </form>
+          <!-- Formulario que se conecta con la ruta POST /login del servidor -->
+          <form method="POST" action="/login">
+            <p>Nombre de usuario</p>
+            <input id="username" name="username" type="text" class="form-control" placeholder="Escribe aqui..."
+              required>
+            <br>
+            <p>Contraseña</p>
+            <input id="password" name="password" type="password" class="form-control" placeholder="Escribe aqui..."
+              required>
+            <br>
+            <!-- Usamos el mismo id de botón que en register para heredar estilo -->
+            <button type="submit" class="btn btn-primary" id="btnRegistrar">Entrar</button>
+          </form>
 
-      <hr>
-      <p class="mt-3">¿No tienes cuenta? <a href="/register">Regístrate</a></p>
+          <hr>
+          <p class="mt-3">¿No tienes cuenta? <a href="/register">Regístrate</a></p>
 
+        </div>
+      </div>
     </div>
+
+
 
   </div>
 
