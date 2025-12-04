@@ -1,41 +1,121 @@
 /*Elementos acomodados de forma alfabetica*/
 
-body{
-    background-color: #BAD8FF;
+#TT{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#btnComentar{
+     height: 70px;
+    width: 150px;
+     background-color: #67C5FF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
 }
 #btnRegistrar{
-    margin-top: 30px;
-    margin-left: 40%;
     width: 150px;
     height: 50px;
-    background-color: #FFB481;
-    color: black;
+    background-color: #67C5FF;
+    color: white;
     font-size: 20px;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.3);
 }  
 
 #btnSubirFuente{
-    background-color: #FFB481;
-    color: black;
+    background-color: #67C5FF;
+    color: white;
     font-weight: bold;
     cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.3);
 }
 
 #btnRegistrate{
-    background-color: #FFB481;
-    color: black;
+    background-color: #67C5FF;
+    color: white;
     font-weight: bold;
     cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+}
+#btnVerFavoritos{
+    height: 70px;
+    width: 150px;
+     background-color: #67C5FF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    margin-top: 90%;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+
+}
+#btnPublicar{
+            height: 70px;
+    width: 150px;
+     background-color: #67C5FF;
+     margin-top: 30px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+}
+
+#btnPuntuar{
+        height: 70px;
+    width: 150px;
+     background-color: #67C5FF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+}
+
+.card{
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0,0,0, 0.4);
+    padding: 20px;
+    align-items: center;
+    height: 100%;
+}
+#card1{
+    background-color: #EEF7FF;
+}
+
+#ColRegistro2{
+    background-color: white;
+    background-color: rgba(235, 235, 235, 0.3);
+    margin-left: 50%;
+    padding: 10%;
+    width: 100%;
+    height: 100%;
+}
+
+#ComentarioCard{
+    padding: 15px;
+    align-items: left;
+    width: 80%;
+    height: 60%;
+}
+#ComentarioInput{
+    height: 100px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 #datosCard{
-    width: 45rem; 
-    height: 45rem; 
-    margin-left: 33%; 
-    margin-top: 5%;
-    border-radius: 5%;
-      border: solid;
-    border-color: black;
-    border-width: 2px;
+   height: 100%;
+   width: 100%;
+   margin-left: 150px;
+   text-align: left;
+   background-color: #EEF7FF;
+   font-weight: bold;
+   color:#000000;
 }
 
 #datosCard h2, #datosCard button{
@@ -51,8 +131,15 @@ body{
     width: 500px;
     height: 50px;
     margin-left: 15%;
+    border-radius: 30px;
 }
-
+#encabezado{
+    box-shadow: 0 10px 20px rgba(0,0,0, 0.3);
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: static;
+}
 #encabezado input{
     margin-top: 15px;
     margin-left: 20px;
@@ -60,7 +147,6 @@ body{
     height: 40px;
     border-radius: 5px;
     border: solid;
-    border-color: black;
     border-width: 1px;
 }
 #encabezado h1{
@@ -70,7 +156,7 @@ body{
 }
 
 #encabezado{
-    background-color: #517A94;
+    background-color: #FFFFFF;
     color: black;
     font-style: bold;
     font-size: 50px;
@@ -81,17 +167,117 @@ body{
 
 }
 
+#FavoritosBody{
+    background-color: #FFF6EE;
+}
 #FotoDePerfil{
     height: 50px;
     width: 50px;
     border-radius: 50%;
 }
 
-#NombreDeUsuario{
-    color:white;
-    margin-top: 10px;
-    margin-left: 15px;
+/*Elementos de la fuente*/
+ #FuenteParteArriba{
+    padding: 20px;
+    background-color: #EEF7FF;
+ }
+#FuentePuntuarRow{
+    padding: 20px;
+    margin-bottom: 30px;
+}
+#lolxd{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
+ #FuenteParteAbajo{
+    padding: 20px;
+ }
+#FuenteRowTitulo{
+    background-color: #EEF7FF;
+    box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
+
+}
+
+#FuenteComentarRow{
+    padding: 20px;
+}
+#FuentePuntImg{
+    height: 50px;
+    width: 50px;
+}
+#FuenteRowDatos{
+ background-color: #EEF7FF;
+    box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
+}
+#Autores{
+    font-size: 30px;
+} 
+
+#TipoFuente{
+    font-size: 30px;
+}
+#Hypervinculo{
+    font-size: 30px;
+}
+#FuenteRowPuntuacion{
+  background-color: #ffffff;
+    box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
+}
+
+#FuenteImg{
+    height: 100%;
+    width: 100%;
+ box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
+
+}
+#FuenteCard{
+    height: 100%;
+    width: 70%;
+    padding: 10px;
+
+}
+
+#ImagenPro{
+    height: 100%;
+    width: 100%;
+}
+
+#LogInCol2{
+    background-color: white;
+    background-color: rgba(235, 235, 235, 0.3);
+    margin-left: 50%;
+    padding: 10%;
+    width: 100%;
+    height: 100%;
+}
+#LogInBody{
+    background-image: url(Imagenes/MontañasMuyPadres.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#NombreDeUsuario{
+    color:black;
+    font-size: 30px;
+    padding: 10px;
+
+}
+
+/*Elementos relacionados a la publicación de fuentes lol*/
+#PublicarBody{
+    background-color: #EEF7FF;
+
+}
+#PublicarFormRow{
+    align-items: center;
+
+}
+
+#PublicarCard{
+    align-items: center;
+    padding: 20px;
 }
 
 #presentacionCard{
@@ -101,4 +287,74 @@ body{
     border: solid;
     border-color: black;
     border-width: 2px;
+}
+
+#PrimerTercio{
+    background-color: #FFFFFF;
+    padding:50px;
+    height: 400px;
+}
+#PrimerTercioImagen{
+    
+    height: 300px;
+    width: 800px;
+}
+
+#RegisterBody{
+    background-image: url(Imagenes/MontañasMuyPadres.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#SeleccionBody{
+    background-color: #EEF7FF;
+}
+#SegundoTercio{
+    background-color: #EEF7FF;
+    padding: 30px;
+    height: 400px;
+    box-shadow: 0 10px 10px rgba(0,0,0, 0.4);
+    padding: 20px;
+}
+
+#SegundoTercioImagen{
+    height: 150px;
+    width: 150px;
+}
+#TercerTercio{
+    padding: 30px;
+    background-color: #FFFFFF;
+    height: 400px;
+}
+#TercerTercioImagen{
+    height: 150px;
+    width: 150px;
+    margin-left: 50px;
+}
+
+/*Elemenos del usuario*/
+
+#UsuarioDescripcion{
+    margin-right: 20%;
+    
+}
+#UsuarioDescripcionCard{
+    text-align: left;
+    font-weight: bold;
+}
+#UusarioParteDeArriba{
+    background-color: #EEF7FF;
+    padding: 15px;
+}
+#UsuarioImg{
+    border-radius: 50%;
+}
+#UsuarioSeparacion{
+    background-color: #FFF6EE;
+}
+
+#UsuarioPublicaciones{
+     background-color: #FFF6EE;
+     height: 100%;
 }
