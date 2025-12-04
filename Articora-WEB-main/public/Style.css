@@ -1,6 +1,19 @@
 /*Elementos acomodados de forma alfabetica*/
 
-
+#TT{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#btnComentar{
+     height: 70px;
+    width: 150px;
+     background-color: #67C5FF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+}
 #btnRegistrar{
     width: 150px;
     height: 50px;
@@ -8,6 +21,7 @@
     color: white;
     font-size: 20px;
     border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.3);
 }  
 
 #btnSubirFuente{
@@ -16,6 +30,7 @@
     font-weight: bold;
     cursor: pointer;
     border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.3);
 }
 
 #btnRegistrate{
@@ -24,6 +39,41 @@
     font-weight: bold;
     cursor: pointer;
     border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+}
+#btnVerFavoritos{
+    height: 70px;
+    width: 150px;
+     background-color: #67C5FF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    margin-top: 90%;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+
+}
+#btnPublicar{
+            height: 70px;
+    width: 150px;
+     background-color: #67C5FF;
+     margin-top: 30px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+}
+
+#btnPuntuar{
+        height: 70px;
+    width: 150px;
+     background-color: #67C5FF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
 }
 
 .card{
@@ -44,6 +94,18 @@
     padding: 10%;
     width: 100%;
     height: 100%;
+}
+
+#ComentarioCard{
+    padding: 15px;
+    align-items: left;
+    width: 80%;
+    height: 60%;
+}
+#ComentarioInput{
+    height: 100px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 #datosCard{
@@ -105,10 +167,75 @@
 
 }
 
+#FavoritosBody{
+    background-color: #FFF6EE;
+}
 #FotoDePerfil{
     height: 50px;
     width: 50px;
     border-radius: 50%;
+}
+
+/*Elementos de la fuente*/
+ #FuenteParteArriba{
+    padding: 20px;
+    background-color: #EEF7FF;
+ }
+#FuentePuntuarRow{
+    padding: 20px;
+    margin-bottom: 30px;
+}
+#lolxd{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+ #FuenteParteAbajo{
+    padding: 20px;
+ }
+#FuenteRowTitulo{
+    background-color: #EEF7FF;
+    box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
+
+}
+
+#FuenteComentarRow{
+    padding: 20px;
+}
+#FuentePuntImg{
+    height: 50px;
+    width: 50px;
+}
+#FuenteRowDatos{
+ background-color: #EEF7FF;
+    box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
+}
+#Autores{
+    font-size: 30px;
+} 
+
+#TipoFuente{
+    font-size: 30px;
+}
+#Hypervinculo{
+    font-size: 30px;
+}
+#FuenteRowPuntuacion{
+  background-color: #ffffff;
+    box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
+}
+
+#FuenteImg{
+    height: 100%;
+    width: 100%;
+ box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
+
+}
+#FuenteCard{
+    height: 100%;
+    width: 70%;
+    padding: 10px;
+
 }
 
 #ImagenPro{
@@ -138,6 +265,21 @@
 
 }
 
+/*Elementos relacionados a la publicación de fuentes lol*/
+#PublicarBody{
+    background-color: #EEF7FF;
+
+}
+#PublicarFormRow{
+    align-items: center;
+
+}
+
+#PublicarCard{
+    align-items: center;
+    padding: 20px;
+}
+
 #presentacionCard{
     width: 90%;
     margin-top: 100px;
@@ -165,6 +307,9 @@
     background-size: cover;
 }
 
+#SeleccionBody{
+    background-color: #EEF7FF;
+}
 #SegundoTercio{
     background-color: #EEF7FF;
     padding: 30px;
@@ -186,4 +331,30 @@
     height: 150px;
     width: 150px;
     margin-left: 50px;
+}
+
+/*Elemenos del usuario*/
+
+#UsuarioDescripcion{
+    margin-right: 20%;
+    
+}
+#UsuarioDescripcionCard{
+    text-align: left;
+    font-weight: bold;
+}
+#UusarioParteDeArriba{
+    background-color: #EEF7FF;
+    padding: 15px;
+}
+#UsuarioImg{
+    border-radius: 50%;
+}
+#UsuarioSeparacion{
+    background-color: #FFF6EE;
+}
+
+#UsuarioPublicaciones{
+     background-color: #FFF6EE;
+     height: 100%;
 }
