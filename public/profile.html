@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Usuario - Artícora</title>
+  <title>Perfil - Artícora</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="Style.css">
 </head>
@@ -12,48 +12,180 @@
 <body>
   <div class="container-fluid" id="encabezado">
     <div class="row align-items-center">
-      <div class="col"><h1>Articora</h1></div>
-      <div class="col-auto"><button class="btn" id="btnRegistrate">Registrate</button></div>
-      <div class="col-auto"><button class="btn" id="btnSubirFuente">Subir Fuente</button></div>
-      <div class="col"><input type="text" class="form-control" placeholder="Buscar una fuente"></div>
-      <div class="col-auto"><p id="NombreDeUsuario">Nombre de usuario.</p></div>
-      <div class="col-auto"><img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil"></div>
+      <div class="col">
+        <h1><a href="/" style="color: inherit; text-decoration: none;">Articora</a></h1>
+      </div>
+      <div class="col-auto">
+        <button class="btn" id="btnRegistrate" onclick="window.location.href='/register'">Registrate</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn" id="btnSubirFuente" onclick="window.location.href='/upload'">Subir Fuente</button>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Buscar una fuente" id="searchInput">
+      </div>
+      <div class="col-auto">
+        <p id="NombreDeUsuario">Cargando...</p>
+      </div>
+      <div class="col-auto">
+        <img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil" style="cursor: pointer;" onclick="window.location.href='/profile'">
+      </div>
     </div>
   </div>
 
   <main class="container mt-4">
-    <div class="row g-3">
-      <div class="col-md-2"><img src="Imagenes/fotodeperfil.png" alt="foto de perfil" id="UsuarioImg"></div>
-      <div class="col-md-8">
-        <h2 id="ProfileName">Nombre de usuario</h2>
-        <div class="card" id="UsuarioDescripcionCard">
-          <p>Hola soy un usuario de la plataforma de Artícora! Me gusta leer y compartir mis ideas con la gente.</p>
-        </div>
+    <div class="row g-3" id="profileHeader">
+      <div class="col-md-2">
+        <img src="Imagenes/fotodeperfil.png" alt="foto de perfil" id="UsuarioImg" style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%;">
       </div>
-      <div class="col-md-2"><button class="btn" id="btnVerFavoritos">Tus favoritos</button></div>
-    </div>
-
-    <hr class="my-4">
-    <h3>Publicaciones.</h3>
-    <div class="row">
       <div class="col-md-8">
-        <div class="card" id="FuenteCard">
-          <div class="row g-2">
-            <div class="col-md-5"><img src="Imagenes/LibroIcono.png" alt="portada" id="FuenteImg"></div>
-            <div class="col-md-7">
-              <h3>Titulo...</h3>
-              <p>Editorial:</p>
-              <p>Autores:</p>
-              <p>Puntuación:</p>
-            </div>
+        <h2 id="ProfileName">Cargando...</h2>
+        <div class="card" id="UsuarioDescripcionCard">
+          <p id="profileDescription">Cargando descripción...</p>
+          <button class="btn btn-sm btn-outline-secondary mt-2" id="btnEditDesc" style="display: none;">Editar descripción</button>
+          <div id="editDescForm" style="display: none;">
+            <textarea class="form-control mt-2" id="descTextarea" rows="3"></textarea>
+            <button class="btn btn-sm btn-primary mt-2" id="btnSaveDesc">Guardar</button>
+            <button class="btn btn-sm btn-secondary mt-2" id="btnCancelEdit">Cancelar</button>
           </div>
         </div>
       </div>
-      <div class="col-md-4"> </div>
+      <div class="col-md-2">
+        <button class="btn" id="btnVerFavoritos" onclick="window.location.href='/favorites'">Tus favoritos</button>
+      </div>
+    </div>
+
+    <hr class="my-4">
+    <h3>Publicaciones</h3>
+    <div class="row" id="publicacionesContainer">
+      <!-- Las publicaciones se cargarán aquí -->
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  <script>
+    async function loadUserHeader() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        const el = document.getElementById('NombreDeUsuario');
+        const btnRegistrate = document.getElementById('btnRegistrate');
+        const btnSubirFuente = document.getElementById('btnSubirFuente');
+        const fotoPerfil = document.getElementById('FotoDePerfil');
+        
+        if (data && data.isAuthenticated) {
+          if (el) el.textContent = data.Nombre;
+          if (btnRegistrate) btnRegistrate.style.display = 'none';
+          if (btnSubirFuente) btnSubirFuente.style.display = 'inline-block';
+          if (fotoPerfil && data.FotoPerfil) {
+            fotoPerfil.src = data.FotoPerfil;
+          }
+          return data.Usuario_ID;
+        } else {
+          window.location.href = '/login';
+        }
+      } catch (e) {
+        console.error('Error cargando usuario:', e);
+      }
+    }
 
+    async function loadProfile(userId) {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const profileUserId = urlParams.get('id') || userId;
+        
+        const res = await fetch(`/api/usuario/${profileUserId}`);
+        const data = await res.json();
+        
+        document.getElementById('ProfileName').textContent = data.usuario.Nombre;
+        document.getElementById('UsuarioImg').src = data.usuario.FotoPerfil;
+        document.getElementById('profileDescription').textContent = data.usuario.Descripcion;
+        
+        // Mostrar botón de editar solo si es el perfil propio
+        if (profileUserId == userId) {
+          document.getElementById('btnEditDesc').style.display = 'block';
+        }
+        
+        // Cargar publicaciones
+        const container = document.getElementById('publicacionesContainer');
+        container.innerHTML = '';
+        
+        if (data.publicaciones.length === 0) {
+          container.innerHTML = '<p class="text-muted">Este usuario aún no tiene publicaciones.</p>';
+        } else {
+          data.publicaciones.forEach(pub => {
+            const pubElement = document.createElement('div');
+            pubElement.className = 'col-md-6 mb-3';
+            pubElement.innerHTML = `
+              <div class="card fuente-card" onclick="window.location.href='/view?id=${pub.Publicacion_ID}'" style="cursor: pointer;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="${pub.Portada}" alt="Portada" style="width: 100%; height: 150px; object-fit: cover;">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">${pub.Titulo}</h5>
+                      <p class="card-text"><small>Autores: ${pub.Autores}</small></p>
+                      <p class="card-text"><small>Tipo: ${pub.Tipo}</small></p>
+                      <p class="card-text"><small>Puntuación: ${pub.puntuacionPromedio} ⭐</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            container.appendChild(pubElement);
+          });
+        }
+      } catch (e) {
+        console.error('Error cargando perfil:', e);
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        window.location.href = `/select-source?search=${encodeURIComponent(e.target.value)}`;
+      }
+    });
+
+    document.getElementById('btnEditDesc').addEventListener('click', () => {
+      document.getElementById('profileDescription').style.display = 'none';
+      document.getElementById('btnEditDesc').style.display = 'none';
+      document.getElementById('editDescForm').style.display = 'block';
+      document.getElementById('descTextarea').value = document.getElementById('profileDescription').textContent;
+    });
+
+    document.getElementById('btnCancelEdit').addEventListener('click', () => {
+      document.getElementById('profileDescription').style.display = 'block';
+      document.getElementById('btnEditDesc').style.display = 'block';
+      document.getElementById('editDescForm').style.display = 'none';
+    });
+
+    document.getElementById('btnSaveDesc').addEventListener('click', async () => {
+      const newDesc = document.getElementById('descTextarea').value;
+      
+      try {
+        const res = await fetch('/api/perfil', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ descripcion: newDesc })
+        });
+        
+        if (res.ok) {
+          document.getElementById('profileDescription').textContent = newDesc;
+          document.getElementById('profileDescription').style.display = 'block';
+          document.getElementById('btnEditDesc').style.display = 'block';
+          document.getElementById('editDescForm').style.display = 'none';
+        }
+      } catch (e) {
+        console.error('Error actualizando descripción:', e);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const userId = await loadUserHeader();
+      if (userId) {
+        await loadProfile(userId);
+      }
+    });
+  </script>
+</body>
 </html>

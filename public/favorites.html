@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favoritos - Artícora</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="Style.css">
+</head>
+
+<body id="FavoritosBody">
+  <div class="container-fluid" id="encabezado">
+    <div class="row align-items-center">
+      <div class="col">
+        <h1><a href="/" style="color: inherit; text-decoration: none;">Articora</a></h1>
+      </div>
+      <div class="col-auto">
+        <button class="btn" id="btnRegistrate" onclick="window.location.href='/register'">Registrate</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn" id="btnSubirFuente" onclick="window.location.href='/upload'">Subir Fuente</button>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Buscar una fuente" id="searchInput">
+      </div>
+      <div class="col-auto">
+        <p id="NombreDeUsuario">Cargando...</p>
+      </div>
+      <div class="col-auto">
+        <img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil" style="cursor: pointer;" onclick="window.location.href='/profile'">
+      </div>
+    </div>
+  </div>
+
+  <main class="container mt-4">
+    <h2>Tus fuentes favoritas</h2>
+    
+    <div class="row mt-3" id="favoritosContainer">
+      <!-- Las fuentes favoritas se cargarán aquí -->
+    </div>
+    
+    <div id="noFavoritos" class="text-center mt-5" style="display: none;">
+      <h4 class="text-muted">No tienes fuentes favoritas aún</h4>
+      <p class="text-muted">Explora las fuentes y añade tus favoritas haciendo clic en el botón "Añadir a favoritos"</p>
+      <a href="/select-source" class="btn btn-primary">Explorar fuentes</a>
+    </div>
+  </main>
+
+  <script>
+    async function loadUserHeader() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        const el = document.getElementById('NombreDeUsuario');
+        const btnRegistrate = document.getElementById('btnRegistrate');
+        const btnSubirFuente = document.getElementById('btnSubirFuente');
+        const fotoPerfil = document.getElementById('FotoDePerfil');
+        
+        if (data && data.isAuthenticated) {
+          if (el) el.textContent = data.Nombre;
+          if (btnRegistrate) btnRegistrate.style.display = 'none';
+          if (btnSubirFuente) btnSubirFuente.style.display = 'inline-block';
+          if (fotoPerfil && data.FotoPerfil) {
+            fotoPerfil.src = data.FotoPerfil;
+          }
+          return true;
+        } else {
+          window.location.href = '/login';
+          return false;
+        }
+      } catch (e) {
+        console.error('Error cargando usuario:', e);
+        window.location.href = '/login';
+        return false;
+      }
+    }
+
+    async function loadFavoritos() {
+      try {
+        const res = await fetch('/api/favoritos');
+        const data = await res.json();
+        
+        const container = document.getElementById('favoritosContainer');
+        const noFavoritos = document.getElementById('noFavoritos');
+        
+        if (data.publicaciones.length === 0) {
+          container.style.display = 'none';
+          noFavoritos.style.display = 'block';
+          return;
+        }
+        
+        container.innerHTML = '';
+        noFavoritos.style.display = 'none';
+        
+        data.publicaciones.forEach(fuente => {
+          const fuenteElement = document.createElement('div');
+          fuenteElement.className = 'col-md-6 mb-3';
+          fuenteElement.innerHTML = `
+            <div class="card fuente-card">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="${fuente.Portada}" alt="Portada" style="width: 100%; height: 150px; object-fit: cover;">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">${fuente.Titulo}</h5>
+                    <p class="card-text"><small>Autores: ${fuente.Autores}</small></p>
+                    <p class="card-text"><small>Tipo: ${fuente.Tipo}</small></p>
+                    <p class="card-text"><small>Puntuación: ${fuente.puntuacionPromedio} ⭐</small></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <a href="/verFuente?id=${fuente.Publicacion_ID}" class="btn btn-sm btn-primary">Ver fuente</a>
+                      <button class="btn btn-sm btn-outline-danger btn-remove-fav" data-id="${fuente.Publicacion_ID}">
+                        Quitar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          container.appendChild(fuenteElement);
+        });
+        
+        // Agregar event listeners a los botones de quitar
+        document.querySelectorAll('.btn-remove-fav').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const pubId = e.target.dataset.id;
+            
+            if (confirm('¿Seguro que quieres quitar esta fuente de tus favoritos?')) {
+              try {
+                const res = await fetch('/api/favorito', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    publicacionId: pubId,
+                    accion: 'quitar'
+                  })
+                });
+                
+                if (res.ok) {
+                  loadFavoritos();
+                }
+              } catch (error) {
+                console.error('Error:', error);
+              }
+            }
+          });
+        });
+        
+      } catch (e) {
+        console.error('Error cargando favoritos:', e);
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        window.location.href = `/select-source?search=${encodeURIComponent(e.target.value)}`;
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const isAuthenticated = await loadUserHeader();
+      if (isAuthenticated) {
+        await loadFavoritos();
+      }
+    });
+  </script>
+</body>
+</html>

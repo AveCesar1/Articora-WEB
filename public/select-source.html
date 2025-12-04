@@ -10,67 +10,171 @@
 </head>
 
 <body id="SeleccionBody">
-  <!---Encabezado Sigma-->
   <div class="container-fluid" id="encabezado">
     <div class="row align-items-center">
       <div class="col">
-        <h1>Articora</h1>
+        <h1><a href="/" style="color: inherit; text-decoration: none;">Articora</a></h1>
       </div>
       <div class="col-auto">
-        <button class="btn" id="btnRegistrate">Registrate</button>
+        <button class="btn" id="btnRegistrate" onclick="window.location.href='/register'">Registrate</button>
       </div>
       <div class="col-auto">
-        <button class="btn" id="btnSubirFuente">Subir Fuente</button>
+        <button class="btn" id="btnSubirFuente" onclick="window.location.href='/upload'">Subir Fuente</button>
       </div>
       <div class="col">
-        <input type="text" class="form-control" placeholder="Buscar una fuente">
+        <input type="text" class="form-control" placeholder="Buscar una fuente" id="searchInput" value="">
       </div>
       <div class="col-auto">
-        <p id="NombreDeUsuario">Nombre de usuario.</p>
+        <p id="NombreDeUsuario">Cargando...</p>
       </div>
       <div class="col-auto">
-        <img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil">
+        <img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil" style="cursor: pointer;" onclick="window.location.href='/profile'">
       </div>
     </div>
   </div>
 
   <main class="container mt-4">
-    <div class="row">
-      <h2>Selecciona una fuente.</h2>
-    </div>
-    <div class="row mt-3">
-      <!--Columna1-->
-      <div class="col-md-6">
-        <!--Fuente--->
-        <div class="card" id="FuenteCard">
-          <div class="row g-2">
-            <!--Imagen-->
-            <div class="col-md-5" id="FuenteCol1">
-              <img src="Imagenes/LibroIcono.png" alt="portada" id="FuenteImg">
-            </div>
-            <!--Datos-->
-            <div class="col-md-7" id="FuenteCol2">
-              <div class="row" id="FuenteRowTitulo">
-                <h3>Titulo...</h3>
-              </div>
-              <div class="row" id="FuenteRowDatos">
-                <p>Editorial:</p>
-                <p>Autores:</p>
-              </div>
-              <div class="row" id="FuenteRowPuntuacion">
-                <p>Puntuación:</p>
-              </div>
-            </div>
-          </div>
-        </div>
+    <h2>Selecciona una fuente</h2>
+    
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <select class="form-select" id="filterType">
+          <option value="">Todos los tipos</option>
+          <option value="Libro">Libro</option>
+          <option value="Artículo">Artículo</option>
+          <option value="Tesis">Tesis</option>
+          <option value="Documento">Documento</option>
+          <option value="Web">Sitio Web</option>
+        </select>
       </div>
-
-      <!--Columna2-->
-      <div class="col-md-6"></div>
+    </div>
+    
+    <div class="row" id="fuentesContainer">
+      <!-- Las fuentes se cargarán aquí -->
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col text-center">
+        <button class="btn btn-secondary" id="btnLoadMore" style="display: none;">Cargar más</button>
+      </div>
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  <script>
+    let currentPage = 1;
+    let currentSearch = '';
+    let currentType = '';
+    let isLoading = false;
 
+    async function loadUserHeader() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        const el = document.getElementById('NombreDeUsuario');
+        const btnRegistrate = document.getElementById('btnRegistrate');
+        const btnSubirFuente = document.getElementById('btnSubirFuente');
+        const fotoPerfil = document.getElementById('FotoDePerfil');
+        
+        if (data && data.isAuthenticated) {
+          if (el) el.textContent = data.Nombre;
+          if (btnRegistrate) btnRegistrate.style.display = 'none';
+          if (btnSubirFuente) btnSubirFuente.style.display = 'inline-block';
+          if (fotoPerfil && data.FotoPerfil) {
+            fotoPerfil.src = data.FotoPerfil;
+          }
+        } else {
+          if (el) el.innerHTML = '<a href="/login" style="color: black; text-decoration: none;">Iniciar sesión</a>';
+          if (btnRegistrate) btnRegistrate.style.display = 'inline-block';
+          if (btnSubirFuente) btnSubirFuente.style.display = 'none';
+        }
+      } catch (e) {
+        console.error('Error cargando usuario:', e);
+      }
+    }
+
+    async function loadFuentes(page = 1, append = false) {
+      if (isLoading) return;
+      isLoading = true;
+      
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParam = urlParams.get('search') || currentSearch;
+        currentSearch = searchParam;
+        
+        if (page === 1) {
+          document.getElementById('searchInput').value = searchParam;
+        }
+        
+        const url = `/api/publicaciones?page=${page}&limit=8&search=${encodeURIComponent(searchParam)}&type=${encodeURIComponent(currentType)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        
+        const container = document.getElementById('fuentesContainer');
+        
+        if (!append) {
+          container.innerHTML = '';
+        }
+        
+        if (data.publicaciones.length === 0 && page === 1) {
+          container.innerHTML = '<p class="text-muted">No se encontraron fuentes.</p>';
+          document.getElementById('btnLoadMore').style.display = 'none';
+        } else {
+          data.publicaciones.forEach(fuente => {
+            const fuenteElement = document.createElement('div');
+            fuenteElement.className = 'col-md-6 mb-3';
+            fuenteElement.innerHTML = `
+              <div class="card fuente-card" onclick="window.location.href='/view?id=${fuente.Publicacion_ID}'" style="cursor: pointer;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="${fuente.Portada}" alt="Portada" style="width: 100%; height: 150px; object-fit: cover;">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">${fuente.Titulo}</h5>
+                      <p class="card-text"><small>Autores: ${fuente.Autores}</small></p>
+                      <p class="card-text"><small>Tipo: ${fuente.Tipo}</small></p>
+                      <p class="card-text"><small>Publicado por: ${fuente.UsuarioNombre}</small></p>
+                      <p class="card-text"><small>Puntuación: ${fuente.puntuacionPromedio} ⭐</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            container.appendChild(fuenteElement);
+          });
+          
+          document.getElementById('btnLoadMore').style.display = 
+            (page < data.totalPages) ? 'block' : 'none';
+        }
+        
+        currentPage = page;
+      } catch (e) {
+        console.error('Error cargando fuentes:', e);
+      } finally {
+        isLoading = false;
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      currentSearch = e.target.value;
+      currentPage = 1;
+      loadFuentes(1, false);
+    });
+
+    document.getElementById('filterType').addEventListener('change', (e) => {
+      currentType = e.target.value;
+      currentPage = 1;
+      loadFuentes(1, false);
+    });
+
+    document.getElementById('btnLoadMore').addEventListener('click', () => {
+      loadFuentes(currentPage + 1, true);
+    });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadUserHeader();
+      await loadFuentes(1, false);
+    });
+  </script>
+</body>
 </html>

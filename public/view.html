@@ -12,54 +12,301 @@
 <body>
   <div class="container-fluid" id="encabezado">
     <div class="row align-items-center">
-      <div class="col"><h1>Articora</h1></div>
-      <div class="col-auto"><button class="btn" id="btnRegistrate">Registrate</button></div>
-      <div class="col-auto"><button class="btn" id="btnSubirFuente">Subir Fuente</button></div>
-      <div class="col"><input type="text" class="form-control" placeholder="Buscar una fuente"></div>
-      <div class="col-auto"><p id="NombreDeUsuario">Nombre de usuario.</p></div>
-      <div class="col-auto"><img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil"></div>
+      <div class="col">
+        <h1><a href="/" style="color: inherit; text-decoration: none;">Articora</a></h1>
+      </div>
+      <div class="col-auto">
+        <button class="btn" id="btnRegistrate" onclick="window.location.href='/register'">Registrate</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn" id="btnSubirFuente" onclick="window.location.href='/upload'">Subir Fuente</button>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Buscar una fuente" id="searchInput">
+      </div>
+      <div class="col-auto">
+        <p id="NombreDeUsuario">Cargando...</p>
+      </div>
+      <div class="col-auto">
+        <img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil" style="cursor: pointer;" onclick="window.location.href='/profile'">
+      </div>
     </div>
   </div>
 
   <main class="container mt-4">
     <div class="row" id="FuenteParteArriba">
-      <div class="col-md-3"><img src="Imagenes/fisica.jpg" alt="foto de fuente" id="FuenteImg"></div>
+      <div class="col-md-3">
+        <img src="Imagenes/fisica.jpg" alt="foto de fuente" id="FuenteImg" class="img-fluid rounded" style="max-height: 300px;">
+      </div>
       <div class="col-md-7">
-        <h2 id="Titulo">Fisica Giancolli</h2>
-        <h4>Puntuación:</h4>
-        <img src="Imagenes/estrellaLlena.png" alt="estrellas" id="FuentePuntImg">
-        <h4>Autor o autores:</h4>
-        <p id="Autores">Leoelpre</p>
-        <h4>Tipo de fuente:</h4>
-        <p id="TipoFuente">Libro</p>
-        <h4>Hypervinculo:</h4>
-        <a href="#" id="Hypervinculo">Hypervinculo lol</a>
+        <h2 id="Titulo">Cargando...</h2>
+        <h5>Puntuación: <span id="puntuacion">0</span> ⭐</h5>
+        <div class="mb-3">
+          <div class="star-rating" id="starRating">
+            <!-- Estrellas dinámicas -->
+          </div>
+        </div>
+        <h5>Autor o autores:</h5>
+        <p id="Autores" class="mb-3"></p>
+        <h5>Tipo de fuente:</h5>
+        <p id="TipoFuente" class="mb-3"></p>
+        <h5>Publicado por:</h5>
+        <p id="Publicador" class="mb-3"></p>
+        <h5>Enlace:</h5>
+        <a href="#" id="Hypervinculo" target="_blank" class="mb-3">Cargando...</a>
+        <div class="mt-3">
+          <button class="btn btn-outline-primary" id="btnFavorito">Añadir a favoritos</button>
+        </div>
       </div>
       <div class="col-md-2"></div>
     </div>
 
     <hr class="my-4">
     <div class="row" id="FuenteParteAbajo">
-      <div class="col-md-8">
-        <div class="card" id="ComentarioCard">
-          <h3>Pepito</h3>
-          <p>Estuvo chida carnal.</p>
+      <div class="col-md-8" id="comentariosContainer">
+        <h4>Comentarios</h4>
+        <div id="comentariosList">
+          <!-- Comentarios se cargarán aquí -->
         </div>
       </div>
       <div class="col-md-4">
         <div id="FuentePuntuarRow">
-          <h3>Puntuar fuente</h3>
-          <button class="btn" id="btnPuntuar">PuntuarFuente</button>
+          <h5>Calificar fuente</h5>
+          <div class="mb-3">
+            <select class="form-select" id="ratingSelect">
+              <option value="1">⭐ - Muy mala</option>
+              <option value="2">⭐⭐ - Regular</option>
+              <option value="3">⭐⭐⭐ - Buena</option>
+              <option value="4">⭐⭐⭐⭐ - Muy buena</option>
+              <option value="5" selected>⭐⭐⭐⭐⭐ - Excelente</option>
+            </select>
+          </div>
+          <button class="btn btn-primary mb-4" id="btnPuntuar">Calificar</button>
+          
           <hr>
-          <h3>Comentar fuente</h3>
-          <input type="text" placeholder="Escribe aqui..." id="ComentarioInput">
-          <button class="btn" id="btnComentar">Publicar</button>
+          
+          <h5 class="mt-3">Dejar comentario</h5>
+          <div class="mb-3">
+            <textarea class="form-control" id="ComentarioInput" placeholder="Escribe tu comentario aquí..." rows="3"></textarea>
+          </div>
+          <button class="btn btn-primary" id="btnComentar">Publicar comentario</button>
         </div>
       </div>
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  <script>
+    let fuenteId = null;
+    let isFavorito = false;
 
+    async function loadUserHeader() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        const el = document.getElementById('NombreDeUsuario');
+        const btnRegistrate = document.getElementById('btnRegistrate');
+        const btnSubirFuente = document.getElementById('btnSubirFuente');
+        const fotoPerfil = document.getElementById('FotoDePerfil');
+        
+        if (data && data.isAuthenticated) {
+          if (el) el.textContent = data.Nombre;
+          if (btnRegistrate) btnRegistrate.style.display = 'none';
+          if (btnSubirFuente) btnSubirFuente.style.display = 'inline-block';
+          if (fotoPerfil && data.FotoPerfil) {
+            fotoPerfil.src = data.FotoPerfil;
+          }
+          return true;
+        } else {
+          if (el) el.innerHTML = '<a href="/login" style="color: black; text-decoration: none;">Iniciar sesión</a>';
+          if (btnRegistrate) btnRegistrate.style.display = 'inline-block';
+          if (btnSubirFuente) btnSubirFuente.style.display = 'none';
+          return false;
+        }
+      } catch (e) {
+        console.error('Error cargando usuario:', e);
+        return false;
+      }
+    }
+
+    async function loadFuente() {
+      const urlParams = new URLSearchParams(window.location.search);
+      fuenteId = urlParams.get('id');
+      
+      if (!fuenteId) {
+        window.location.href = '/select-source';
+        return;
+      }
+      
+      try {
+        const res = await fetch(`/api/publicacion/${fuenteId}`);
+        const data = await res.json();
+        
+        document.getElementById('Titulo').textContent = data.publicacion.Titulo;
+        document.getElementById('puntuacion').textContent = data.publicacion.puntuacionPromedio;
+        document.getElementById('Autores').textContent = data.publicacion.Autores;
+        document.getElementById('TipoFuente').textContent = data.publicacion.Tipo;
+        document.getElementById('Publicador').innerHTML = `<a href="/perfilUsuario?id=${data.publicacion.Usuario_ID}">${data.publicacion.UsuarioNombre}</a>`;
+        document.getElementById('Hypervinculo').href = data.publicacion.Vinculo;
+        document.getElementById('Hypervinculo').textContent = data.publicacion.Vinculo || 'No disponible';
+        document.getElementById('FuenteImg').src = data.publicacion.Portada;
+        
+        // Actualizar botón de favoritos
+        isFavorito = data.publicacion.esFavorito;
+        updateFavoritoButton();
+        
+        // Cargar comentarios
+        loadComentarios(data.calificaciones);
+        
+        // Mostrar calificación del usuario si existe
+        if (data.publicacion.calificacionUsuario) {
+          document.getElementById('ratingSelect').value = data.publicacion.calificacionUsuario.Puntuacion;
+        }
+        
+      } catch (e) {
+        console.error('Error cargando fuente:', e);
+      }
+    }
+
+    function updateFavoritoButton() {
+      const btn = document.getElementById('btnFavorito');
+      if (isFavorito) {
+        btn.textContent = '★ Quitar de favoritos';
+        btn.classList.remove('btn-outline-primary');
+        btn.classList.add('btn-warning');
+      } else {
+        btn.textContent = '☆ Añadir a favoritos';
+        btn.classList.remove('btn-warning');
+        btn.classList.add('btn-outline-primary');
+      }
+    }
+
+    async function toggleFavorito() {
+      const isAuthenticated = await loadUserHeader();
+      if (!isAuthenticated) {
+        window.location.href = '/login';
+        return;
+      }
+      
+      try {
+        const res = await fetch('/api/favorito', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            publicacionId: fuenteId,
+            accion: isFavorito ? 'quitar' : 'agregar'
+          })
+        });
+        
+        if (res.ok) {
+          isFavorito = !isFavorito;
+          updateFavoritoButton();
+        }
+      } catch (e) {
+        console.error('Error actualizando favorito:', e);
+      }
+    }
+
+    async function calificarFuente() {
+      const isAuthenticated = await loadUserHeader();
+      if (!isAuthenticated) {
+        window.location.href = '/login';
+        return;
+      }
+      
+      const puntuacion = document.getElementById('ratingSelect').value;
+      
+      try {
+        const res = await fetch('/api/calificar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            publicacionId: fuenteId,
+            puntuacion: parseInt(puntuacion)
+          })
+        });
+        
+        if (res.ok) {
+          alert('¡Gracias por tu calificación!');
+          loadFuente();
+        }
+      } catch (e) {
+        console.error('Error calificando:', e);
+      }
+    }
+
+    async function comentarFuente() {
+      const isAuthenticated = await loadUserHeader();
+      if (!isAuthenticated) {
+        window.location.href = '/login';
+        return;
+      }
+      
+      const comentario = document.getElementById('ComentarioInput').value;
+      const puntuacion = document.getElementById('ratingSelect').value;
+      
+      if (!comentario.trim()) {
+        alert('Por favor escribe un comentario');
+        return;
+      }
+      
+      try {
+        const res = await fetch('/api/calificar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            publicacionId: fuenteId,
+            puntuacion: parseInt(puntuacion),
+            comentario: comentario
+          })
+        });
+        
+        if (res.ok) {
+          document.getElementById('ComentarioInput').value = '';
+          alert('¡Comentario publicado!');
+          loadFuente();
+        }
+      } catch (e) {
+        console.error('Error comentando:', e);
+      }
+    }
+
+    function loadComentarios(calificaciones) {
+      const container = document.getElementById('comentariosList');
+      container.innerHTML = '';
+      
+      if (calificaciones.length === 0) {
+        container.innerHTML = '<p class="text-muted">No hay comentarios aún. ¡Sé el primero!</p>';
+        return;
+      }
+      
+      calificaciones.forEach(cal => {
+        const comentarioDiv = document.createElement('div');
+        comentarioDiv.className = 'card mb-2';
+        comentarioDiv.innerHTML = `
+          <div class="card-body">
+            <h6 class="card-title">${cal.Nombre} <small class="text-muted">- ${cal.Puntuacion} ⭐</small></h6>
+            <p class="card-text">${cal.Comentario || ''}</p>
+            <small class="text-muted">${new Date(cal.Fecha).toLocaleDateString()}</small>
+          </div>
+        `;
+        container.appendChild(comentarioDiv);
+      });
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        window.location.href = `/select-source?search=${encodeURIComponent(e.target.value)}`;
+      }
+    });
+
+    document.getElementById('btnFavorito').addEventListener('click', toggleFavorito);
+    document.getElementById('btnPuntuar').addEventListener('click', calificarFuente);
+    document.getElementById('btnComentar').addEventListener('click', comentarFuente);
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadUserHeader();
+      await loadFuente();
+    });
+  </script>
+</body>
 </html>

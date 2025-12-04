@@ -166,20 +166,20 @@ app.get('/login', (req, res) =>
 app.get('/register', (req, res) => 
   res.sendFile(path.join(__dirname, 'public', 'register.html'))
 );
-app.get('/perfilUsuario', (req, res) => 
-  res.sendFile(path.join(__dirname, 'public', 'perfilUsuario.html'))
+app.get('/profile', (req, res) => 
+  res.sendFile(path.join(__dirname, 'public', 'profile.html'))
 );
-app.get('/seleccionarFuente', (req, res) => 
-  res.sendFile(path.join(__dirname, 'public', 'seleccionarFuente.html'))
+app.get('/select-source', (req, res) => 
+  res.sendFile(path.join(__dirname, 'public', 'select-source.html'))
 );
-app.get('/verFuente', (req, res) => 
-  res.sendFile(path.join(__dirname, 'public', 'verFuente.html'))
+app.get('/view', (req, res) => 
+  res.sendFile(path.join(__dirname, 'public', 'view.html'))
 );
-app.get('/subirFuente', (req, res) => 
-  res.sendFile(path.join(__dirname, 'public', 'subirFuente.html'))
+app.get('/upload', (req, res) => 
+  res.sendFile(path.join(__dirname, 'public', 'upload.html'))
 );
-app.get('/verFavoritos', (req, res) => 
-  res.sendFile(path.join(__dirname, 'public', 'verFavoritos.html'))
+app.get('/favorites', (req, res) => 
+  res.sendFile(path.join(__dirname, 'public', 'favorites.html'))
 );
 
 app.get('/logout', (req, res) => {

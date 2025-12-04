@@ -12,45 +12,206 @@
 <body id="PublicarBody">
   <div class="container-fluid" id="encabezado">
     <div class="row align-items-center">
-      <div class="col"><h1>Articora</h1></div>
-      <div class="col-auto"><button class="btn" id="btnRegistrate">Registrate</button></div>
-      <div class="col-auto"><button class="btn" id="btnSubirFuente">Subir Fuente</button></div>
-      <div class="col"><input type="text" class="form-control" placeholder="Buscar una fuente"></div>
-      <div class="col-auto"><p id="NombreDeUsuario">Nombre de usuario.</p></div>
-      <div class="col-auto"><img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil"></div>
+      <div class="col">
+        <h1><a href="/" style="color: inherit; text-decoration: none;">Articora</a></h1>
+      </div>
+      <div class="col-auto">
+        <button class="btn" id="btnRegistrate" onclick="window.location.href='/register'">Registrate</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn" id="btnSubirFuente" onclick="window.location.href='/upload'">Subir Fuente</button>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Buscar una fuente" id="searchInput">
+      </div>
+      <div class="col-auto">
+        <p id="NombreDeUsuario">Cargando...</p>
+      </div>
+      <div class="col-auto">
+        <img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil" style="cursor: pointer;" onclick="window.location.href='/profile'">
+      </div>
     </div>
   </div>
 
   <main class="container mt-4">
-    <h2>Crea tu publicación.</h2>
-    <div class="card" id="PublicarCard">
-      <div class="row">
-        <div class="col-md-6">
-          <div id="PublicarFormRow">
-            <h3>Titulo</h3>
-            <input type="text" placeholder="Escribe aqui..." id="TituloInput">
-
-            <h3>Tipo de fuente</h3>
-            <input type="text" placeholder="Escribe aqui..." id="TipoFuenteInput">
-
-            <h3>Imagen relacionada</h3>
-            <input type="file" accept="image/*" id="ImgInput">
-
-            <h3>Nombre del autor o autores</h3>
-            <input type="text" placeholder="Escribe aqui..." id="AutoresInput">
-
-            <h3>Hypervinculo</h3>
-            <input type="text" placeholder="Colocalo aqui..." id="LinkInputt">
-
-            <button class="btn" id="btnPublicar">Publicar Fuente</button>
+    <h2>Crea tu publicación</h2>
+    
+    <div class="card mt-3" id="PublicarCard">
+      <div class="card-body">
+        <form id="publicacionForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="TituloInput" class="form-label">Título *</label>
+                <input type="text" class="form-control" id="TituloInput" placeholder="Ej: Introducción a la Física Moderna" required>
+              </div>
+              
+              <div class="mb-3">
+                <label for="TipoFuenteInput" class="form-label">Tipo de fuente *</label>
+                <select class="form-select" id="TipoFuenteInput" required>
+                  <option value="">Selecciona un tipo</option>
+                  <option value="Libro">Libro</option>
+                  <option value="Artículo">Artículo</option>
+                  <option value="Tesis">Tesis</option>
+                  <option value="Documento">Documento</option>
+                  <option value="Web">Sitio Web</option>
+                  <option value="Revista">Revista</option>
+                  <option value="Video">Video</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="AutoresInput" class="form-label">Autor(es) *</label>
+                <input type="text" class="form-control" id="AutoresInput" placeholder="Ej: Juan Pérez, María García" required>
+              </div>
+              
+              <div class="mb-3">
+                <label for="LinkInput" class="form-label">Enlace (opcional)</label>
+                <input type="url" class="form-control" id="LinkInput" placeholder="https://ejemplo.com">
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="ImgInput" class="form-label">Imagen de portada (opcional)</label>
+                <input type="file" class="form-control" id="ImgInput" accept="image/*">
+                <small class="text-muted">Formatos: JPG, PNG, GIF. Máx: 5MB</small>
+                <div class="mt-2" id="imagePreview"></div>
+              </div>
+              
+              <div class="alert alert-info">
+                <small>
+                  <strong>Nota:</strong> Los campos marcados con * son obligatorios.
+                  La publicación será visible para todos los usuarios de Artícora.
+                </small>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-md-6"></div>
+          
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg" id="btnPublicar">
+              <span id="btnText">Publicar Fuente</span>
+              <span id="btnLoading" class="spinner-border spinner-border-sm" style="display: none;"></span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  <script>
+    async function loadUserHeader() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        const el = document.getElementById('NombreDeUsuario');
+        const btnRegistrate = document.getElementById('btnRegistrate');
+        const btnSubirFuente = document.getElementById('btnSubirFuente');
+        const fotoPerfil = document.getElementById('FotoDePerfil');
+        
+        if (data && data.isAuthenticated) {
+          if (el) el.textContent = data.Nombre;
+          if (btnRegistrate) btnRegistrate.style.display = 'none';
+          if (btnSubirFuente) btnSubirFuente.style.display = 'inline-block';
+          if (fotoPerfil && data.FotoPerfil) {
+            fotoPerfil.src = data.FotoPerfil;
+          }
+          return true;
+        } else {
+          window.location.href = '/login';
+          return false;
+        }
+      } catch (e) {
+        console.error('Error cargando usuario:', e);
+        window.location.href = '/login';
+        return false;
+      }
+    }
 
+    // Vista previa de imagen
+    document.getElementById('ImgInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      const preview = document.getElementById('imagePreview');
+      
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.innerHTML = `
+            <img src="${e.target.result}" class="img-thumbnail" style="max-height: 200px;">
+            <button type="button" class="btn btn-sm btn-danger mt-2" onclick="document.getElementById('ImgInput').value = ''; this.parentElement.innerHTML = '';">
+              Quitar imagen
+            </button>
+          `;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Enviar formulario
+    document.getElementById('publicacionForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const titulo = document.getElementById('TituloInput').value;
+      const tipo = document.getElementById('TipoFuenteInput').value;
+      const autores = document.getElementById('AutoresInput').value;
+      const vinculo = document.getElementById('LinkInput').value;
+      const imagen = document.getElementById('ImgInput').files[0];
+      
+      if (!titulo || !tipo || !autores) {
+        alert('Por favor completa todos los campos obligatorios.');
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append('titulo', titulo);
+      formData.append('tipo', tipo);
+      formData.append('autores', autores);
+      formData.append('vinculo', vinculo);
+      if (imagen) {
+        formData.append('portada', imagen);
+      }
+      
+      // Mostrar estado de carga
+      const btnText = document.getElementById('btnText');
+      const btnLoading = document.getElementById('btnLoading');
+      const btnPublicar = document.getElementById('btnPublicar');
+      
+      btnText.textContent = 'Publicando...';
+      btnLoading.style.display = 'inline-block';
+      btnPublicar.disabled = true;
+      
+      try {
+        const res = await fetch('/api/publicacion', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const data = await res.json();
+        
+        if (res.ok) {
+          alert('¡Publicación creada exitosamente!');
+          window.location.href = `/verFuente?id=${data.publicacionId}`;
+        } else {
+          alert('Error: ' + (data.error || 'No se pudo crear la publicación'));
+        }
+      } catch (e) {
+        console.error('Error:', e);
+        alert('Error al conectar con el servidor');
+      } finally {
+        btnText.textContent = 'Publicar Fuente';
+        btnLoading.style.display = 'none';
+        btnPublicar.disabled = false;
+      }
+    });
+
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        window.location.href = `/select-source?search=${encodeURIComponent(e.target.value)}`;
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadUserHeader);
+  </script>
+</body>
 </html>
