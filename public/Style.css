@@ -1,360 +1,254 @@
-/*Elementos acomodados de forma alfabetica*/
-
-#TT{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-#btnComentar{
-     height: 70px;
-    width: 150px;
-     background-color: #67C5FF;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 30px;
-    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
-}
-#btnRegistrar{
-    width: 150px;
-    height: 50px;
-    background-color: #67C5FF;
-    color: white;
-    font-size: 20px;
-    border-radius: 30px;
-    box-shadow: 0 5px 10px rgba(0,0,0, 0.3);
-}  
-
-#btnSubirFuente{
-    background-color: #67C5FF;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 30px;
-    box-shadow: 0 5px 10px rgba(0,0,0, 0.3);
+/* Variables y reset */
+:root {
+    --accent: #67C5FF;
+    /* botones */
+    --card-bg: #EEF7FF;
+    --page-bg: #FFF6EE;
+    --header-bg: #FFFFFF;
+    --text-color: #000000;
+    --shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
 }
 
-#btnRegistrate{
-    background-color: #67C5FF;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 30px;
-    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
-}
-#btnVerFavoritos{
-    height: 70px;
-    width: 150px;
-     background-color: #67C5FF;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 30px;
-    margin-top: 90%;
-    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
-
-}
-#btnPublicar{
-            height: 70px;
-    width: 150px;
-     background-color: #67C5FF;
-     margin-top: 30px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 30px;
-    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial
 }
 
-#btnPuntuar{
-        height: 70px;
-    width: 150px;
-     background-color: #67C5FF;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 30px;
-    box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+html,
+body {
+    height: 100%
 }
 
-.card{
-    border-radius: 10px;
-    box-shadow: 0 10px 10px rgba(0,0,0, 0.4);
-    padding: 20px;
-    align-items: center;
-    height: 100%;
-}
-#card1{
-    background-color: #EEF7FF;
+body {
+    background-color: var(--page-bg);
+    color: var(--text-color);
 }
 
-#ColRegistro2{
-    background-color: white;
-    background-color: rgba(235, 235, 235, 0.3);
-    margin-left: 50%;
-    padding: 10%;
+/* Cabecera común */
+#encabezado {
+    background-color: var(--header-bg);
+    box-shadow: var(--shadow);
+    padding: 12px 20px;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+#encabezado .row {
+    align-items: center
+}
+
+#encabezado h1 {
+    font-style: italic;
+    font-size: 48px;
+    margin: 0
+}
+
+#encabezado input[type="text"] {
     width: 100%;
-    height: 100%;
-}
-
-#ComentarioCard{
-    padding: 15px;
-    align-items: left;
-    width: 80%;
-    height: 60%;
-}
-#ComentarioInput{
-    height: 100px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-#datosCard{
-   height: 100%;
-   width: 100%;
-   margin-left: 150px;
-   text-align: left;
-   background-color: #EEF7FF;
-   font-weight: bold;
-   color:#000000;
-}
-
-#datosCard h2, #datosCard button{
-    text-align: center;
-}
-#datosCard p{
-    margin-top: 40px;
-    margin-left: 15%;
-    font-size: 20px;
-}
-#datosCard input{
-    margin-top: 10px;
-    width: 500px;
-    height: 50px;
-    margin-left: 15%;
-    border-radius: 30px;
-}
-#encabezado{
-    box-shadow: 0 10px 20px rgba(0,0,0, 0.3);
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    position: static;
-}
-#encabezado input{
-    margin-top: 15px;
-    margin-left: 20px;
-    width: 600px;
+    max-width: 520px;
     height: 40px;
-    border-radius: 5px;
-    border: solid;
-    border-width: 1px;
-}
-#encabezado h1{
-    font-family: italic;
-    font-size: 60px;
-    
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 6px 10px
 }
 
-#encabezado{
-    background-color: #FFFFFF;
-    color: black;
-    font-style: bold;
-    font-size: 50px;
-    height: 80px;
-    border: solid;
-    border-color: black;
-    border-width: 2px;
-
-}
-
-#FavoritosBody{
-    background-color: #FFF6EE;
-}
-#FotoDePerfil{
+#FotoDePerfil {
     height: 50px;
     width: 50px;
     border-radius: 50%;
+    object-fit: cover
 }
 
-/*Elementos de la fuente*/
- #FuenteParteArriba{
-    padding: 20px;
-    background-color: #EEF7FF;
- }
-#FuentePuntuarRow{
-    padding: 20px;
-    margin-bottom: 30px;
-}
-#lolxd{
-    margin-top: 20px;
-    margin-bottom: 20px;
+#NombreDeUsuario {
+    color: var(--text-color);
+    font-size: 20px;
+    padding: 6px
 }
 
- #FuenteParteAbajo{
-    padding: 20px;
- }
-#FuenteRowTitulo{
-    background-color: #EEF7FF;
-    box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
-
+/* Botones comunes (mantener colores) */
+.btn,
+#btnRegistrar,
+#btnPublicar,
+#btnVerFavoritos,
+#btnPuntuar,
+#btnComentar,
+#btnSubirFuente,
+#btnRegistrate {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 28px;
+    font-weight: 700;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
 }
 
-#FuenteComentarRow{
-    padding: 20px;
+.btn:active {
+    transform: translateY(1px)
 }
-#FuentePuntImg{
+
+#btnRegistrar {
+    width: 150px;
     height: 50px;
-    width: 50px;
-}
-#FuenteRowDatos{
- background-color: #EEF7FF;
-    box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
-}
-#Autores{
-    font-size: 30px;
-} 
-
-#TipoFuente{
-    font-size: 30px;
-}
-#Hypervinculo{
-    font-size: 30px;
-}
-#FuenteRowPuntuacion{
-  background-color: #ffffff;
-    box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
+    font-size: 18px
 }
 
-#FuenteImg{
-    height: 100%;
+/* Tarjetas y contenedores */
+.card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    padding: 18px
+}
+
+/* Datos / formularios */
+#datosCard {
+    background: var(--card-bg);
+    padding: 28px;
+    border-radius: 14px;
+    text-align: left
+}
+
+#datosCard h2 {
+    margin-bottom: 10px
+}
+
+#datosCard input[type="text"],
+#datosCard input[type="password"],
+#datosCard input[type="email"] {
     width: 100%;
- box-shadow: 0px 5px 5px rgba(0,0,0, 0.4);
-
-}
-#FuenteCard{
-    height: 100%;
-    width: 70%;
-    padding: 10px;
-
+    max-width: 520px;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 8px 12px;
+    margin: 8px 0
 }
 
-#ImagenPro{
-    height: 100%;
-    width: 100%;
-}
-
-#LogInCol2{
-    background-color: white;
-    background-color: rgba(235, 235, 235, 0.3);
-    margin-left: 50%;
-    padding: 10%;
-    width: 100%;
-    height: 100%;
-}
-#LogInBody{
-    background-image: url(Imagenes/MontañasMuyPadres.jpeg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-#NombreDeUsuario{
-    color:black;
-    font-size: 30px;
-    padding: 10px;
-
-}
-
-/*Elementos relacionados a la publicación de fuentes lol*/
-#PublicarBody{
-    background-color: #EEF7FF;
-
-}
-#PublicarFormRow{
-    align-items: center;
-
-}
-
-#PublicarCard{
-    align-items: center;
-    padding: 20px;
-}
-
-#presentacionCard{
+/* Presentación y secciones */
+#presentacionCard {
     width: 90%;
-    margin-top: 100px;
-    margin-left: 5%;
-    border: solid;
-    border-color: black;
-    border-width: 2px;
+    margin: 80px auto;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    background: var(--card-bg);
+    padding: 20px
 }
 
-#PrimerTercio{
-    background-color: #FFFFFF;
-    padding:50px;
-    height: 400px;
-}
-#PrimerTercioImagen{
-    
-    height: 300px;
-    width: 800px;
+/* Fuente cards */
+#FuenteCard {
+    width: 100%;
+    max-width: 900px;
+    margin: 12px auto;
+    padding: 12px
 }
 
-#RegisterBody{
-    background-image: url(Imagenes/MontañasMuyPadres.jpeg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+#FuenteImg,
+#ImagenPro {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px
 }
 
-#SeleccionBody{
-    background-color: #EEF7FF;
-}
-#SegundoTercio{
-    background-color: #EEF7FF;
-    padding: 30px;
-    height: 400px;
-    box-shadow: 0 10px 10px rgba(0,0,0, 0.4);
-    padding: 20px;
-}
-
-#SegundoTercioImagen{
-    height: 150px;
-    width: 150px;
-}
-#TercerTercio{
-    padding: 30px;
-    background-color: #FFFFFF;
-    height: 400px;
-}
-#TercerTercioImagen{
-    height: 150px;
-    width: 150px;
-    margin-left: 50px;
+#FuenteRowTitulo,
+#FuenteRowDatos,
+#FuenteRowPuntuacion {
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.06);
+    margin-bottom: 10px
 }
 
-/*Elemenos del usuario*/
-
-#UsuarioDescripcion{
-    margin-right: 20%;
-    
-}
-#UsuarioDescripcionCard{
-    text-align: left;
-    font-weight: bold;
-}
-#UusarioParteDeArriba{
-    background-color: #EEF7FF;
-    padding: 15px;
-}
-#UsuarioImg{
+/* Perfil */
+#UsuarioImg {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
     border-radius: 50%;
 }
-#UsuarioSeparacion{
-    background-color: #FFF6EE;
+
+#UsuarioDescripcionCard {
+    padding: 12px
 }
 
-#UsuarioPublicaciones{
-     background-color: #FFF6EE;
-     height: 100%;
+/* Layout específico limpio */
+.container {
+    max-width: 1100px;
+    margin: 0 auto
 }
+
+#cuerpo {
+    padding: 20px
+}
+
+/* Variaciones de fondo por página (mantener colores) */
+#FavoritosBody {
+    background-color: var(--page-bg)
+}
+
+#LogInBody,
+#RegisterBody {
+    background-image: url('Imagenes/MontañasMuyPadres.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+#SeleccionBody,
+#PublicarBody {
+    background-color: var(--card-bg)
+}
+
+/* Inputs y comentarios */
+#ComentarioInput {
+    width: 100%;
+    min-height: 100px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 10px
+}
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+    #encabezado h1 {
+        font-size: 34px
+    }
+
+    #datosCard input[type="text"],
+    #datosCard input[type="password"] {
+        max-width: 100%
+    }
+
+    #PrimerTercio,
+    #SegundoTercio,
+    #TercerTercio {
+        padding: 18px
+    }
+
+    #PrimerTercioImagen {
+        width: 100%;
+        height: auto
+    }
+
+    .container {
+        padding: 12px
+    }
+}
+
+/* Keep legacy selectors to avoid breaking pages */
+#btnPublicar,
+#btnVerFavoritos,
+#btnPuntuar,
+#btnComentar {
+    display: inline-block
+}
+
+#FuentePuntImg {
+    height: 50px;
+    width: 50px
+}
+
+/* End of Style.css */

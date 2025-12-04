@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -13,7 +13,7 @@
 <body>
   <!---Encabezado Sigma-->
   <div class="container-fluid" id="encabezado">
-    <div class="row">
+    <div class="row align-items-center">
       <div class="col">
         <h1>Articora</h1>
       </div>
@@ -30,11 +30,12 @@
       <div class="col">
         <p id="NombreDeUsuario">Nombre de usuario.</p>
       </div>
-      <div class="col"> <img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil"></img></div>
+      <div class="col"> <img id="FotoDePerfil" src="Imagenes/fotodeperfil.png" alt="Foto de perfil"></div>
     </div>
   </div>
   <br>
-  <div class="container-fluid" id="cuerpo">
+
+  <main class="container-fluid" id="cuerpo">
     <!---Primer tercio de la pagina principal-->
     <div class="row" id="PrimerTercio">
       <div class="col-md-5">
@@ -48,7 +49,7 @@
       <div class="col-md-1">
       </div>
       <div class="col-md-4">
-        <img src="Imagenes/MontañasMuyPadres.jpeg" alt="imagen de articora" id="PrimerTercioImagen">
+        <img src="Imagenes/MontañasMuyPadres.jpeg" alt="imagen de articora" id="PrimerTercioImagen" style="width:100%;height:auto">
       </div>
     </div>
     <hr>
@@ -56,22 +57,21 @@
     <div class="container-fluid" id="SegundoTercio">
       <div class="row">
         <h2>Dentro de Artícora</h2>
-        <div class="col">
+        <div class="col-md-6">
           <div class="card" id="card2">
             <h3>Encontrar fuentes</h3>
             <p>Puedes encontrar fuentes bibliograficas publicadas por otros usuarios
               a los que les apasiona la investigación tanto como a ti.</p>
-            <img src="Imagenes/LibroIcono.png" alt="imagenlibro" id="SegundoTercioImagen">
+            <img src="Imagenes/LibroIcono.png" alt="imagenlibro" id="SegundoTercioImagen" style="width:120px;height:120px">
           </div>
         </div>
-        <div class="col">
-
+        <div class="col-md-6">
           <div class="card" id="card2">
             <h3>Publicar tus fuentes</h3>
             <p>Ademas, tienes la posibilidad de publicar y guardar tus propias
               fuentes bibliograficas, así, para que los demas usuarios puedan expandir
               su conocimiento y conocer tus gustos.</p>
-            <img src="Imagenes/PlanetaIcono.png" alt="imagenmundo" id="SegundoTercioImagen">
+            <img src="Imagenes/PlanetaIcono.png" alt="imagenmundo" id="SegundoTercioImagen" style="width:120px;height:120px">
 
           </div>
 
@@ -87,20 +87,12 @@
           <p>Nuestra principal misión es formar una comunidad de investigadores que puedan
             apoyarse mutuamente al publicar fuentes bibliograficas de calidad y realmente utiles para cada investigador.
           </p>
-          <img src="Imagenes/ManosIcono.png" alt="imagenmanos" id="TercerTercioImagen">
+          <img src="Imagenes/ManosIcono.png" alt="imagenmanos" id="TercerTercioImagen" style="width:120px;height:120px">
         </div>
       </div>
-
-
-
-
-
     </div>
 
-
-
-
-  </div>
+  </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -119,7 +111,7 @@
           if (btnRegistrate) btnRegistrate.style.display = 'none';
         } else {
           // Si no hay usuario, mostrar texto por defecto o enlace a login
-          if (el) el.innerHTML = '<a href="/login" style="color: white; text-decoration: none;">Iniciar sesión</a>';
+          if (el) el.innerHTML = '<a href="/login" style="color: black; text-decoration: none;">Iniciar sesión</a>';
           if (btnRegistrate) btnRegistrate.style.display = 'inline-block';
         }
       } catch (e) {
